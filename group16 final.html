@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>پژوهش تبلیغات ورزشی - گروه ۱۶</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.0.3/fonts/webfonts/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    
+    <style>
+        /* --- تنظیمات پایه و ریست --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        
+        body { 
+            font-family: 'Vazirmatn', 'Tahoma', sans-serif; 
+            background-color: #f0f2f5; 
+            height: 100vh; width: 100vw; 
+            overflow: hidden; 
+            display: flex; justify-content: center; align-items: center; 
+        }
+        
+        .mobile-container { 
+            width: 100%; max-width: 420px; height: 100%; 
+            background-color: #fff; position: relative; 
+            display: flex; flex-direction: column;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+
+        /* --- صفحه ۱: دستورالعمل (مقدمه) --- */
+        #page-intro {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 100;
+            background: white; 
+            display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; 
+            padding: 25px;
+        }
+        
+        .intro-emoji { font-size: 50px; margin-bottom: 20px; }
+        .intro-title { font-size: 20px; font-weight: 900; margin-bottom: 20px; color: #000; }
+        .intro-text { font-size: 14px; line-height: 1.8; color: #333; text-align: justify; margin-bottom: 40px; }
+        
+        /* دکمه شروع */
+        .start-btn {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            color: white; border: none; padding: 18px; 
+            font-size: 18px; font-weight: 700; font-family: 'Vazirmatn', 'Tahoma', sans-serif;
+            border-radius: 12px; width: 100%; 
+            cursor: pointer; user-select: none;
+            box-shadow: 0 4px 15px rgba(220, 39, 67, 0.4);
+            transition: transform 0.2s, opacity 0.2s;
+        }
+        .start-btn:active { opacity: 0.8; transform: scale(0.98); }
+
+        /* --- صفحه ۲: پست اینستاگرام --- */
+        #page-post {
+            display: none; 
+            flex-direction: column; height: 100%; width: 100%;
+            z-index: 50;
+        }
+
+        /* هدر تایمر */
+        .timer-header { background: #fff; padding-bottom: 5px; }
+        .timer-text { 
+            text-align: center; padding: 8px; font-size: 13px; 
+            color: #666; font-weight: bold; border-bottom: 1px solid #eee; 
+        }
+        .timer-bar { height: 5px; background: #eee; width: 100%; direction: ltr; }
+        .progress { height: 100%; background: #dc2743; width: 100%; transition: width 1s linear; }
+        
+        /* افکت‌های آلارم (۵ ثانیه آخر) */
+        .alarm-mode { animation: alarm-flash 0.5s infinite !important; background-color: red !important; }
+        .alarm-text { color: red !important; font-weight: 900 !important; font-size: 15px !important; animation: text-scale 0.5s infinite; }
+        @keyframes alarm-flash { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        @keyframes text-scale { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+
+        /* هدر پروفایل */
+        .post-header { display: flex; align-items: center; padding: 10px 15px; background: #fff; }
+        .profile-pic { width: 32px; height: 32px; background: #ddd; border-radius: 50%; margin-left: 10px; }
+        .username { font-weight: 700; font-size: 14px; flex-grow: 1; color: #262626; }
+
+        /* باکس تصویر */
+        .post-img-box { 
+            width: 100%; background: #fafafa; 
+            display: flex; align-items: center; justify-content: center;
+            min-height: 200px;
+        }
+        /* تصویر پیراهن (گروه ۱۶) */
+        .post-img-box img { width: 100%; height: auto; display: block; object-fit: contain; max-height: 60vh; }
+
+        /* اکشن بار */
+        .actions { padding: 12px 15px; display: flex; gap: 15px; background: #fff; }
+        .icon { width: 24px; height: 24px; stroke: #262626; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        
+        /* استایل اختصاصی ایموجی بزرگ و واضح */
+        .emoji-big {
+            font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            font-size: 2.2rem; /* سایز بزرگ برای دیده‌شدن */
+            vertical-align: middle;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+            margin: 0 3px;
+            display: inline-block;
+        }
+
+        /* کپشن */
+        .caption { 
+            padding: 0 15px; 
+            font-size: 15px; 
+            line-height: 1.8; /* فاصله خطوط مناسب برای ایموجی بزرگ */
+            color: #262626; 
+            background: #fff;
+            flex-grow: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mobile-container">
+        <!-- صفحه ۱: مقدمه -->
+        <div id="page-intro">
+            <div class="intro-emoji">👋</div>
+            <div class="intro-title">هوادار عزیز، سلام</div>
+            <div class="intro-text">
+                با تشکر از مشارکت شما.<br><br>
+                در صفحه بعد، یک پست اینستاگرامی از تیم ورزشی به مدت <strong>۳۰ ثانیه</strong> نمایش داده می‌شود.<br>
+                لطفاً دقیقاً همانند زمانی که در گوشی خود اینستاگرام را چک می‌کنید، <strong>به تصویر و متن زیر آن با دقت نگاه کنید.</strong><br><br>
+                پس از پایان زمان، به صورت خودکار به صفحه سوالات هدایت می‌شوید.
+            </div>
+            
+            <button class="start-btn" onclick="startTest()">مشاهده پست</button>
+        </div>
+
+        <!-- صفحه ۲: پست اصلی -->
+        <div id="page-post">
+            <!-- تایمر -->
+            <div class="timer-header">
+                <div class="timer-text" id="timer-txt">زمان باقی‌مانده: <span id="timer-num">30</span> ثانیه</div>
+                <div class="timer-bar"><div class="progress" id="prog-bar"></div></div>
+            </div>
+
+            <!-- هدر پست -->
+            <div class="post-header">
+                <div class="profile-pic"></div>
+                <div class="username">Team_Official_Page</div>
+                <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+            </div>
+
+            <!-- تصویر -->
+            <div class="post-img-box">
+                <img src="shirt.jpg" alt="Team Jersey">
+            </div>
+
+            <!-- دکمه‌ها -->
+            <div class="actions">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                <svg class="icon" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                <svg class="icon" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            </div>
+
+            <!-- کپشن: راهبرد پیچیده (Complex) -->
+            <div class="caption">
+                <div style="font-weight: bold; margin-bottom: 5px;">1,240 likes</div>
+                <span style="font-weight: bold;">Team_Official_Page</span>
+                <br>
+                <span class="emoji-big">🆕</span> <span class="emoji-big">👕</span> فصل با طراحی منحصر به فرد <span class="emoji-big">✨</span> همین حالا سفارش دهید <span class="emoji-big">👇</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- تنظیمات اختصاصی گروه ۱۶ ---
+        // لینک پرسشنامه گروه ۱۶
+        var TARGET_URL = "https://survey.porsline.ir/s/97Ze9HGF?qs=K1VBWY6fFmjie9A"; 
+        
+        var duration = 30; // ۳۰ ثانیه
+        var timerRunning = false;
+
+        function startTest() {
+            if (timerRunning) return;
+            timerRunning = true;
+
+            // سوئیچ بین صفحات
+            document.getElementById('page-intro').style.display = 'none';
+            document.getElementById('page-post').style.display = 'flex';
+
+            var timeLeft = duration;
+            var progBar = document.getElementById('prog-bar');
+            var timerNum = document.getElementById('timer-num');
+            var timerTxt = document.getElementById('timer-txt');
+
+            progBar.style.width = '100%';
+
+            var timerInterval = setInterval(function() {
+                timeLeft--;
+                timerNum.innerText = timeLeft;
+                
+                var percentage = (timeLeft / duration) * 100;
+                progBar.style.width = percentage + '%';
+
+                // آلارم قرمز در ۵ ثانیه آخر
+                if (timeLeft <= 5) {
+                    progBar.classList.add('alarm-mode');
+                    timerTxt.classList.add('alarm-text');
+                }
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    window.location.href = TARGET_URL;
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

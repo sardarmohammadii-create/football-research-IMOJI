@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>گروه ۷ - کلاه (تکمیل‌کنندگی)</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.0.3/fonts/webfonts/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <style>
+        /* تنظیمات پایه */
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        body { 
+            font-family: 'Vazirmatn', 'Tahoma', sans-serif; 
+            background-color: #f0f2f5; 
+            height: 100vh; 
+            width: 100vw; 
+            overflow: hidden; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+        }
+        
+        .mobile-container { 
+            width: 100%; 
+            max-width: 420px; 
+            height: 100%; 
+            background-color: #fff; 
+            position: relative; 
+            display: flex; 
+            flex-direction: column; 
+            box-shadow: 0 0 15px rgba(0,0,0,0.1); 
+        }
+
+        /* --- صفحه مقدمه --- */
+        #page-intro { 
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+            z-index: 100; background: white; 
+            display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; 
+            padding: 30px; 
+            text-align: center;
+        }
+        .intro-emoji { font-size: 60px; margin-bottom: 25px; }
+        .intro-title { font-size: 24px; font-weight: 900; margin-bottom: 25px; color: #000; }
+        .intro-text { font-size: 18px; line-height: 2; color: #333; text-align: justify; margin-bottom: 50px; }
+        
+        .start-btn { 
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); 
+            color: white; border: none; padding: 20px; 
+            font-size: 20px; font-weight: 700; font-family: 'Vazirmatn', sans-serif; 
+            border-radius: 15px; width: 100%; cursor: pointer; user-select: none; 
+            box-shadow: 0 4px 15px rgba(220, 39, 67, 0.4); 
+            transition: transform 0.2s, opacity 0.2s; 
+            position: relative; 
+            z-index: 1000; 
+        }
+        .start-btn:active { opacity: 0.8; transform: scale(0.98); }
+
+        /* --- صفحه پست --- */
+        #page-post { display: none; flex-direction: column; height: 100%; width: 100%; z-index: 50; }
+        
+        .timer-header { background: #fff; padding-bottom: 5px; }
+        .timer-text { text-align: center; padding: 10px; font-size: 14px; color: #666; font-weight: bold; border-bottom: 1px solid #eee; }
+        .timer-bar { height: 6px; background: #eee; width: 100%; direction: ltr; }
+        .progress { height: 100%; background: #dc2743; width: 100%; transition: width 1s linear; }
+        
+        .alarm-mode { animation: alarm-flash 0.5s infinite !important; background-color: red !important; }
+        .alarm-text { color: red !important; font-weight: 900 !important; font-size: 16px !important; animation: text-scale 0.5s infinite; }
+        @keyframes alarm-flash { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        @keyframes text-scale { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+
+        .post-header { display: flex; align-items: center; padding: 12px 15px; background: #fff; }
+        .profile-pic { width: 40px; height: 40px; background: #ddd; border-radius: 50%; margin-left: 12px; }
+        .username { font-weight: 700; font-size: 16px; flex-grow: 1; color: #262626; }
+
+        .post-img-box { width: 100%; background: #fafafa; display: flex; align-items: center; justify-content: center; flex-grow: 0; min-height: 250px; }
+        .post-img-box img { width: 100%; height: auto; display: block; object-fit: contain; max-height: 45vh; }
+
+        .actions { padding: 12px 15px; display: flex; gap: 18px; background: #fff; }
+        .icon { width: 28px; height: 28px; stroke: #262626; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+        .caption { padding: 0 15px; font-size: 18px; line-height: 1.6; color: #262626; background: #fff; flex-grow: 1; overflow-y: auto; }
+        .likes-count { font-weight: bold; margin-bottom: 8px; font-size: 16px; display: block; }
+        
+        /* استایل مخصوص ایموجی‌های تصویری */
+        .emoji-icon {
+            height: 1.3em;
+            width: auto;
+            vertical-align: middle;
+            margin: 0 2px;
+            position: relative;
+            top: -2px;
+        }
+
+        /* --- صفحه پایان --- */
+        #page-end {
+            display: none; flex-direction: column; justify-content: center; align-items: center;
+            width: 100%; height: 100%; padding: 30px; background: white; z-index: 200;
+        }
+        .end-emoji { font-size: 60px; margin-bottom: 25px; }
+        .end-title { font-size: 24px; font-weight: 900; margin-bottom: 40px; color: #000; }
+        .end-btn {
+            display: block; text-decoration: none; background: #28a745; color: white; border: none; padding: 20px;
+            font-size: 20px; font-weight: 700; font-family: 'Vazirmatn', sans-serif;
+            border-radius: 15px; width: 100%; cursor: pointer; user-select: none;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4); text-align: center; transition: transform 0.2s;
+        }
+        .end-btn:active { transform: scale(0.98); }
+
+    </style>
+</head>
+<body>
+    <div class="mobile-container">
+        <!-- صفحه ۱: مقدمه -->
+        <div id="page-intro">
+            <div class="intro-emoji">👋</div>
+            <div class="intro-title">هوادار عزیز، سلام</div>
+            <div class="intro-text">
+                با تشکر از مشارکت شما.<br><br>
+                در صفحه بعد، یک پست اینستاگرامی به مدت <strong>۳۰ ثانیه</strong> نمایش داده می‌شود.<br>
+                لطفاً <strong>به تصویر و متن زیر آن با دقت نگاه کنید.</strong><br><br>
+                پس از پایان زمان، خودکار به صفحه سوالات می‌روید.
+            </div>
+            <button class="start-btn" id="btn-start">مشاهده پست</button>
+        </div>
+
+        <!-- صفحه ۲: پست اصلی -->
+        <div id="page-post">
+            <!-- تایمر -->
+            <div class="timer-header">
+                <div class="timer-text" id="timer-txt">زمان باقی‌مانده: <span id="timer-num">30</span> ثانیه</div>
+                <div class="timer-bar"><div class="progress" id="prog-bar"></div></div>
+            </div>
+
+            <!-- هدر پست -->
+            <div class="post-header">
+                <div class="profile-pic"></div>
+                <div class="username">Team_Official_Page</div>
+                <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+            </div>
+
+            <!-- تصویر محصول: کلاه -->
+            <div class="post-img-box">
+                <img src="cap.jpg" alt="کلاه تیم">
+            </div>
+
+            <!-- دکمه‌ها -->
+            <div class="actions">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                <svg class="icon" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                <svg class="icon" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            </div>
+
+            <!-- کپشن: راهبرد تکمیل‌کنندگی (Augmentation) -->
+            <div class="caption">
+                <span class="likes-count">985 likes</span>
+                <span style="font-weight: bold;">Team_Official_Page</span>
+                <br>
+                کلاه رسمی تیم با طراحی جدید آماده فروش است 
+                <img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/2728.png" class="emoji-icon" alt="جرقه">. 
+                این محصول با کیفیت عالی تولید شده و نماد هواداری شماست 
+                <img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/2764.png" class="emoji-icon" alt="قلب">. 
+                هم‌اکنون می‌توانید سفارش دهید 
+                <img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f447.png" class="emoji-icon" alt="پایین">.
+            </div>
+        </div>
+
+        <!-- صفحه ۳: پایان و دکمه انتقال دستی -->
+        <div id="page-end">
+             <div class="end-emoji">✅</div>
+             <div class="end-title">زمان به پایان رسید</div>
+             <a href="https://survey.porsline.ir/s/97Ze9HGF?qs=W1VBWY66o1jie9r" class="end-btn">رفتن به پرسشنامه</a>
+        </div>
+    </div>
+
+    <script>
+        var TARGET_URL = "https://survey.porsline.ir/s/97Ze9HGF?qs=W1VBWY66o1jie9r"; 
+        var duration = 30; 
+        var timerRunning = false;
+        var timerInterval;
+
+        function startTest() {
+            if (timerRunning) return;
+            timerRunning = true;
+
+            document.getElementById('page-intro').style.display = 'none';
+            document.getElementById('page-post').style.display = 'flex';
+
+            var timeLeft = duration;
+            var progBar = document.getElementById('prog-bar');
+            var timerNum = document.getElementById('timer-num');
+            var timerTxt = document.getElementById('timer-txt');
+            
+            progBar.style.width = '100%';
+            timerNum.innerText = timeLeft;
+
+            timerInterval = setInterval(function() {
+                timeLeft--;
+                timerNum.innerText = timeLeft;
+                
+                var percentage = (timeLeft / duration) * 100;
+                progBar.style.width = percentage + '%';
+
+                if (timeLeft <= 5) {
+                    progBar.classList.add('alarm-mode');
+                    timerTxt.classList.add('alarm-text');
+                }
+
+                if (timeLeft <= 0) {
+                    endTest();
+                }
+            }, 1000);
+        }
+
+        function endTest() {
+            clearInterval(timerInterval);
+            
+            document.getElementById('page-post').style.display = 'none';
+            document.getElementById('page-end').style.display = 'flex';
+            
+            try {
+                window.location.href = TARGET_URL;
+            } catch (e) {
+                console.error("Redirect failed:", e);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var btn = document.getElementById('btn-start');
+            if(btn) {
+                btn.addEventListener('click', startTest);
+                btn.addEventListener('touchstart', function(e) {
+                    e.preventDefault();
+                    startTest();
+                }, {passi: false});
+            }
+        });
+    </script>
+</body>
+</html>
+`
